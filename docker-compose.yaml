@@ -1,0 +1,22 @@
+volumes:
+  appname_pg_vol:
+
+networks:
+  appname_net:
+    name: appname_net
+
+services:
+  appname_db:
+    container_name: appname_db
+    image: postgres:17-alpine
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_DB=appname
+      - POSTGRES_USER=appname
+      - POSTGRES_PASSWORD=strongPassword
+    networks:
+      - appname_net
+    volumes:
+      - appname_pg_vol:/var/lib/postgresql/data
