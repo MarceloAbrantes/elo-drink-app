@@ -1,22 +1,22 @@
 volumes:
-  appname_pg_vol:
+  elo_drinks_pg_vol:
 
 networks:
-  appname_net:
-    name: appname_net
+  elo_drinks_net:
+    name: elo_drinks_net
 
 services:
-  appname_db:
-    container_name: appname_db
+  elo_drinks_db:
+    container_name: elo_drinks_db
     image: postgres:17-alpine
     restart: always
     ports:
       - '5432:5432'
     environment:
-      - POSTGRES_DB=appname
-      - POSTGRES_USER=appname
+      - POSTGRES_DB=elo_drinks
+      - POSTGRES_USER=elo_drinks
       - POSTGRES_PASSWORD=strongPassword
     networks:
-      - appname_net
+      - elo_drinks_net
     volumes:
-      - appname_pg_vol:/var/lib/postgresql/data
+      - elo_drinks_pg_vol:/var/lib/postgresql/data
