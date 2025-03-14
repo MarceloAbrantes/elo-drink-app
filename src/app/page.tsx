@@ -1,8 +1,20 @@
 import Image from 'next/image';
 
 export default function Home() {
+  interface FunctionProps {
+    parametro1: string;
+    parametro2: string;
+  }
+
+  const functionTest = ({ parametro1, parametro2 }: { parametro1: string; parametro2: string }) => {
+    console.log('test');
+  };
+
+  function test2(props: FunctionProps) {}
+
   return (
     <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
+      <div className="text-white">SAMUEL</div>
       <main className="flex flex-col items-center row-start-2 gap-8 sm:items-start">
         <Image
           className="dark:invert"

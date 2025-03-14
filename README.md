@@ -38,7 +38,7 @@ yarn install
 Start the docker compose to run the database:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ### Generate database types
