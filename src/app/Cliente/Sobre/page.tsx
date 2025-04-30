@@ -3,21 +3,6 @@ import Link from "next/link";
 export default function SobrePage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#F7F6F3]">
-      {/* Navbar */}
-      <header className="fixed w-full top-0 z-50 flex justify-between items-center px-8 py-6 bg-[#E0CEAA] shadow-md">
-      <div className="flex items-center gap-4">
-        <img
-            src="/logo2.png"
-            alt="Logo Elo Drinks"
-            className="w-auto h-16"
-        />
-        </div>
-        <nav className="flex gap-8 text-[#5A5040] font-medium text-lg">
-            <Link href="/Cliente" className="hover:text-[#8B6E4E] transition-colors duration-300">Home</Link>
-            <Link href="/Cliente/Sobre" className="hover:text-[#8B6E4E] transition-colors duration-300">Sobre</Link>
-            <Link href="/Cliente/Contato" className="hover:text-[#8B6E4E] transition-colors duration-300">Contato</Link>
-        </nav>
-      </header>
 
       {/* Imagem com Texto por cima */}
       <section className="relative w-full h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden">
@@ -49,14 +34,6 @@ export default function SobrePage() {
           </p>
         </div>
       </main>
-
-      {/* Rodapé */}
-      <footer className="w-full bg-[#E0CEAA] py-6 text-center text-[#5A5040]">
-        <p>© {new Date().getFullYear()} Elo Drinks | Todos os direitos reservados</p>
-        <p className="mt-2">
-        </p>
-      </footer>
-
     </div>
   );
 }
