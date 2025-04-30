@@ -66,7 +66,7 @@ export default function Contato() {
         </div>
 
         {/* Imagem de fundo lateral */}
-        <div className="relative hidden lg:block lg:w-1/2">
+        <div className="relative hidden -mt-20 lg:block lg:w-1/2">
           <Image
             src="/fundo-contato.JPG"
             alt="Banner Contato"
