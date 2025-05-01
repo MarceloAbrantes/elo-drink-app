@@ -8,7 +8,7 @@ export default async function Home() {
   // Handle sign-in (e.g., with a provider like Google)
   const handleSignIn = async () => {
     "use server";
-    await signIn("github"); // Replace "google" with your provider (e.g., github, credentials)
+    await signIn("github",{redirectTo: "/Admin"}); // Replace "google" with your provider (e.g., github, credentials)
   };
 
   // Handle sign-out
