@@ -14,3 +14,26 @@ model users {
   image     String
   createdAt DateTime @default(now())
 }
+
+model Pessoa {
+  id        Int         @id @default(autoincrement())
+  nome      String
+  email     String
+  telefone  String
+  cpf       String      @unique
+  orcamentos Orcamento[]
+}
+
+model Orcamento {
+  id             Int      @id @default(autoincrement())
+  tipoEvento     String
+  dataEvento     DateTime
+  horarioInicio  String
+  horarioTermino String
+  convidados     Int
+  observacoes    String?
+  adicionais     Json
+  createdAt      DateTime @default(now())
+  pessoaId       Int
+  pessoa         Pessoa   @relation(fields: [pessoaId], references: [id])
+}
