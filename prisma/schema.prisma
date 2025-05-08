@@ -37,6 +37,7 @@ model Orcamento {
   pessoaId       Int
   pessoa         Pessoa   @relation(fields: [pessoaId], references: [id])
 }
+<<<<<<< HEAD
 
 model User {
   id            String    @id @default(cuid())
@@ -79,3 +80,5 @@ model VerificationToken {
   expires    DateTime
   @@unique([identifier, token])
 }
+=======
+>>>>>>> fb9414b99421c247aa05f8cf075bdd5c6db484fa
