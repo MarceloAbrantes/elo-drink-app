@@ -30,7 +30,7 @@ export default function OrcamentosPage() {
             <p className="text-[#5A5040]">Nenhum orçamento encontrado.</p>
           ) : (
             orcamentos.map((orc: any) => (
-              <div key={orc.id} className="pb-4 border-b">
+              <div key={orc.id} className="pb-4 text-black border-b">
                 <p><strong>Evento:</strong> {orc.tipoEvento}</p>
                 <p><strong>Data do Evento:</strong> {new Date(orc.dataEvento).toLocaleDateString("pt-BR")}</p>
                 <p><strong>Horário:</strong> {orc.horarioInicio} - {orc.horarioTermino}</p>
