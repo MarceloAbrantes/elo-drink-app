@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 export default function FinalizarPage() {
   const [orcamento, setOrcamento] = useState<any>(null);
@@ -11,6 +12,7 @@ export default function FinalizarPage() {
     telefone: "",
     cpf: "",
   });
+  const [finalizado, setFinalizado] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -36,9 +38,11 @@ export default function FinalizarPage() {
       });
 
       if (res.ok) {
-        alert("Orçamento finalizado com sucesso!");
         localStorage.removeItem("orcamento_draft");
-        router.push("/cliente/finalizar?sucesso=1");
+        setFinalizado(true);
+        setTimeout(() => {
+          router.push("/Cliente");
+        }, 10000);
       } else {
         alert("Erro ao finalizar orçamento.");
       }
@@ -46,6 +50,21 @@ export default function FinalizarPage() {
       console.error(error);
       alert("Erro ao finalizar orçamento.");
     }
+  }
+
+  if (finalizado) {
+    return (
+      <div className="flex items-center justify-center min-h-screen p-8 bg-white">
+        <div className="space-y-6 text-center">
+          <div className="w-32 h-32 mx-auto">
+            {/* Substitua por um gif/ícone de sucesso se quiser */}
+            <Image src="/sucesso.gif" alt="Sucesso" width={200} height={200} />
+          </div>
+          <h1 className="text-3xl font-bold text-[#5A5040]">Orçamento finalizado com sucesso!</h1>
+          <p className="text-lg">Você será redirecionado para a página inicial em instantes...</p>
+        </div>
+      </div>
+    );
   }
 
   if (!orcamento) {
