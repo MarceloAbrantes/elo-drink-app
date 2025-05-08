@@ -27,7 +27,7 @@ export default function SobrePage() {
         <img
           src="/fundo.svg"
           alt="Fundo decorativo"
-          className="absolute z-0 object-cover w-full h-full opacity-10"
+          className="absolute z-0 object-cover w-full h-full opacity-15"
         />
 
         {/* Texto à esquerda */}
