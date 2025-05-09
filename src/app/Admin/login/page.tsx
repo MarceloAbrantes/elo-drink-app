@@ -1,7 +1,7 @@
 import { auth, signOut, signIn } from "../../../../auth";
 import Link from "next/link";
 
-export default async function Home() {
+export default async function AdminLogin() {
   // Get the current session to check if the user is authenticated
   const session = await auth();
 
