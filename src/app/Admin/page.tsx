@@ -1,6 +1,7 @@
 import { auth, signOut } from "../../../auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import AdminLayout from "./AdminLayout";
 
 
 export default async function Admin() {
@@ -37,6 +38,5 @@ export default async function Admin() {
             </button>
           </form>
     </div>
-    
   );
 }

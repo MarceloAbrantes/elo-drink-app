@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
+import AdminLayout from '../AdminLayout';
+import Admin from "../page";
 export default function OrcamentosPage() {
   const [orcamentos, setOrcamentos] = useState([]);
 
@@ -12,15 +13,10 @@ export default function OrcamentosPage() {
   }, []);
 
   return (
+    <AdminLayout>
     <div className="min-h-screen bg-[#F7F6F3] flex flex-col md:flex-row">
       {/* Sidebar do administrador */}
-      <aside className="w-full p-6 bg-white shadow-md md:w-64 md:min-h-screen">
-        <h2 className="text-2xl font-bold text-[#5A5040] mb-6">Administrador</h2>
-        <div className="space-y-2 text-[#5A5040]">
-          <p><strong>Nome:</strong> Marcelo</p>
-          <p><strong>E-mail:</strong> admin@email.com</p>
-        </div>
-      </aside>
+
 
       {/* Conteúdo principal */}
       <main className="flex-1 p-8">
@@ -62,6 +58,7 @@ export default function OrcamentosPage() {
         </div>
       </main>
     </div>
+    </AdminLayout>
   );
 }
 
