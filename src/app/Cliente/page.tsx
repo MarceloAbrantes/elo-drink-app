@@ -1,36 +1,36 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Plus } from "lucide-react";
-import Image from "next/image";
+import { useState } from 'react';
+import { Plus } from 'lucide-react';
+import Image from 'next/image';
 
 export default function OrcamentoPage() {
   const [eventoSelecionado, setEventoSelecionado] = useState<string | null>(null);
 
-  const eventos = ["Debutante", "Casamento", "Corporativo", "Aniversário", "Outro"];
+  const eventos = ['Debutante', 'Casamento', 'Corporativo', 'Aniversário', 'Outro'];
 
   const adicionais = {
     bebidas: [
-      { nome: "Cerveja Premium (Heineken/Stella)", preco: 9, unidade: "por unidade" },
-      { nome: "Espumante Freixenet Brut", preco: 75, unidade: "por unidade" },
-      { nome: "Espumante Salton Brut", preco: 40, unidade: "por unidade" },
-      { nome: "Whisky Black Label", preco: 160, unidade: "por unidade" },
-      { nome: "Whisky Red Label", preco: 100, unidade: "por unidade" },
+      { nome: 'Cerveja Premium (Heineken/Stella)', preco: 9, unidade: 'por unidade' },
+      { nome: 'Espumante Freixenet Brut', preco: 75, unidade: 'por unidade' },
+      { nome: 'Espumante Salton Brut', preco: 40, unidade: 'por unidade' },
+      { nome: 'Whisky Black Label', preco: 160, unidade: 'por unidade' },
+      { nome: 'Whisky Red Label', preco: 100, unidade: 'por unidade' },
     ],
     servicos: [
-      { nome: "Seguro Quebra", preco: 9, unidade: "por convidado" },
-      { nome: "Módulo de Bar Profissional", preco: 1500, unidade: "valor fixo" },
-      { nome: "Bar Whiskeria (harmonizações)", preco: 3500, unidade: "valor fixo" },
+      { nome: 'Seguro Quebra', preco: 9, unidade: 'por convidado' },
+      { nome: 'Módulo de Bar Profissional', preco: 1500, unidade: 'valor fixo' },
+      { nome: 'Bar Whiskeria (harmonizações)', preco: 3500, unidade: 'valor fixo' },
     ],
     personalizados: [
-      { nome: "Drink na Lâmpada", preco: 8, unidade: "por unidade" },
-      { nome: "Shot Mini Beer – 100 unid.", preco: 1200, unidade: "lote" },
-      { nome: "Mini milk-shakes de Oreo – 100 unid.", preco: 1500, unidade: "lote" },
-      { nome: "Tequila de café em copinhos de chocolate – 50 unid.", preco: 800, unidade: "lote" },
-      { nome: "Jägermeister em tubos de ensaio – 50 unid.", preco: 500, unidade: "lote" },
-      { nome: "Busca Vida em mini garrafas – 50 unid.", preco: 500, unidade: "lote" },
-      { nome: "Welcome Drink – Ponche Lillet", preco: 3500, unidade: "valor fixo" },
-      { nome: "Carrinho de Carajillo", preco: 1800, unidade: "valor fixo" },
+      { nome: 'Drink na Lâmpada', preco: 8, unidade: 'por unidade' },
+      { nome: 'Shot Mini Beer – 100 unid.', preco: 1200, unidade: 'lote' },
+      { nome: 'Mini milk-shakes de Oreo – 100 unid.', preco: 1500, unidade: 'lote' },
+      { nome: 'Tequila de café em copinhos de chocolate – 50 unid.', preco: 800, unidade: 'lote' },
+      { nome: 'Jägermeister em tubos de ensaio – 50 unid.', preco: 500, unidade: 'lote' },
+      { nome: 'Busca Vida em mini garrafas – 50 unid.', preco: 500, unidade: 'lote' },
+      { nome: 'Welcome Drink – Ponche Lillet', preco: 3500, unidade: 'valor fixo' },
+      { nome: 'Carrinho de Carajillo', preco: 1800, unidade: 'valor fixo' },
     ],
   };
 
@@ -49,7 +49,7 @@ export default function OrcamentoPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-  
+
     const payload = {
       tipoEvento: eventoSelecionado,
       dataEvento: formData.dataEvento,
@@ -59,12 +59,12 @@ export default function OrcamentoPage() {
       observacoes: formData.observacoes,
       adicionais: formData.adicionais,
     };
-  
+
     // Salvar no localStorage (como rascunho)
-    localStorage.setItem("orcamento_draft", JSON.stringify(payload));
-  
+    localStorage.setItem('orcamento_draft', JSON.stringify(payload));
+
     // Redirecionar para página de finalização
-    window.location.href = "/Cliente/Finalizar";
+    window.location.href = '/Cliente/Finalizar';
   }
 
   function selecionarEvento(evento: string) {
@@ -72,20 +72,20 @@ export default function OrcamentoPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F6F3] flex flex-col pt-24 px-8">
+    <div className="flex min-h-screen flex-col bg-[#F7F6F3] px-8 pt-24">
       <div className="flex flex-col items-start justify-start gap-12 lg:flex-row">
         <div className="flex flex-col w-full max-w-2xl">
-          <h1 className="text-4xl font-bold text-[#5A5040] mb-8 ml-15">
+          <h1 className="mb-8 ml-15 text-4xl font-bold text-[#5A5040]">
             Faça agora o orçamento do seu evento!
           </h1>
           <div className="flex flex-col gap-6">
             {eventos.map((evento) => (
               <div
                 key={evento}
-                className="flex justify-between items-center p-6 bg-white rounded-lg shadow-md border-l-8 border-[#E0CEAA] cursor-pointer hover:scale-105 hover:shadow-lg transition-all duration-300"
+                className="flex cursor-pointer items-center justify-between rounded-lg border-l-8 border-[#E0CEAA] bg-white p-6 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
                 onClick={() => selecionarEvento(evento)}
               >
-                <span className="text-2xl text-[#5A5040] font-semibold">{evento}</span>
+                <span className="text-2xl font-semibold text-[#5A5040]">{evento}</span>
                 <Plus size={32} color="#5A5040" />
               </div>
             ))}
@@ -93,7 +93,7 @@ export default function OrcamentoPage() {
         </div>
 
         <div className="justify-end hidden w-full lg:flex">
-          <div className="w-[700px] h-[700px] relative rounded-lg overflow-hidden shadow-md">
+          <div className="relative h-[700px] w-[700px] overflow-hidden rounded-lg shadow-md">
             <Image
               src="/imagem_fundo2.JPG"
               alt="Drinks Elo"
@@ -107,7 +107,7 @@ export default function OrcamentoPage() {
 
       {eventoSelecionado && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40">
-          <div className="relative w-full max-w-5xl p-8 bg-white shadow-2xl rounded-xl overflow-y-auto max-h-[90vh]">
+          <div className="relative max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-xl bg-white p-8 shadow-2xl">
             <button
               onClick={() => setEventoSelecionado(null)}
               className="absolute text-2xl text-gray-600 top-4 right-4 hover:text-red-500"
@@ -115,18 +115,18 @@ export default function OrcamentoPage() {
               ×
             </button>
 
-            <h2 className="text-3xl font-bold text-[#5A5040] mb-8 text-center">
+            <h2 className="mb-8 text-center text-3xl font-bold text-[#5A5040]">
               Orçamento para {eventoSelecionado}
             </h2>
 
-            {(eventoSelecionado === "Debutante" || eventoSelecionado === "Casamento") ? (
+            {eventoSelecionado === 'Debutante' || eventoSelecionado === 'Casamento' ? (
               <form className="space-y-6 text-[#5A5040]" onSubmit={handleSubmit}>
                 <div>
                   <label className="font-semibold">Data do Evento</label>
                   <input
                     type="date"
                     value={formData.dataEvento}
-                    onChange={(e) => handleInputChange("dataEvento", e.target.value)}
+                    onChange={(e) => handleInputChange('dataEvento', e.target.value)}
                     className="w-full p-3 mt-2 border rounded-md"
                   />
                 </div>
@@ -136,7 +136,7 @@ export default function OrcamentoPage() {
                     <input
                       type="time"
                       value={formData.horarioInicio}
-                      onChange={(e) => handleInputChange("horarioInicio", e.target.value)}
+                      onChange={(e) => handleInputChange('horarioInicio', e.target.value)}
                       className="w-full p-3 mt-2 border rounded-md"
                     />
                   </div>
@@ -145,7 +145,7 @@ export default function OrcamentoPage() {
                     <input
                       type="time"
                       value={formData.horarioTermino}
-                      onChange={(e) => handleInputChange("horarioTermino", e.target.value)}
+                      onChange={(e) => handleInputChange('horarioTermino', e.target.value)}
                       className="w-full p-3 mt-2 border rounded-md"
                     />
                   </div>
@@ -155,7 +155,7 @@ export default function OrcamentoPage() {
                   <input
                     type="number"
                     value={formData.convidados}
-                    onChange={(e) => handleInputChange("convidados", e.target.value)}
+                    onChange={(e) => handleInputChange('convidados', e.target.value)}
                     className="w-full p-3 mt-2 border rounded-md"
                   />
                 </div>
@@ -163,18 +163,25 @@ export default function OrcamentoPage() {
                 <div>
                   <label className="font-semibold">Itens inclusos no pacote</label>
                   <ul className="mt-4 space-y-2 list-disc list-inside">
-                    {eventoSelecionado === "Casamento" && (
+                    {eventoSelecionado === 'Casamento' && (
                       <>
                         <li>Drinks: Moscow Mule, Fitzgerald, Penicilin, Paradise, Aperol Spritz</li>
                         <li>Gin Tônica: Toranja Tonic, Classic Tonic</li>
                         <li>Caipirinhas: Abacaxi com hortelã, Kiwi com canela, Caju com cravo</li>
                       </>
                     )}
-                    {eventoSelecionado === "Debutante" && (
+                    {eventoSelecionado === 'Debutante' && (
                       <>
-                        <li>Drinks: Moscow Mule, Basil Smash, Penicilin, Fitzgerald, Classic Tonic</li>
-                        <li>Caipirinhas: Abacaxi com hortelã, Uva com manjericão, Kiwi com limão</li>
-                        <li>Soft Drinks: Cirque Blue, Pink Lemonade, Pina Descolada, Lichia Paradise, Sonho Brilhante</li>
+                        <li>
+                          Drinks: Moscow Mule, Basil Smash, Penicilin, Fitzgerald, Classic Tonic
+                        </li>
+                        <li>
+                          Caipirinhas: Abacaxi com hortelã, Uva com manjericão, Kiwi com limão
+                        </li>
+                        <li>
+                          Soft Drinks: Cirque Blue, Pink Lemonade, Pina Descolada, Lichia Paradise,
+                          Sonho Brilhante
+                        </li>
                       </>
                     )}
                     <li>Destilados premium inclusos</li>
@@ -185,9 +192,11 @@ export default function OrcamentoPage() {
                 {Object.entries(adicionais).map(([categoria, itens]) => (
                   <div key={categoria}>
                     <h3 className="pb-1 mt-8 mb-2 text-xl font-semibold capitalize border-b">
-                      {categoria === "bebidas" ? "Adicionais de Bebidas" :
-                        categoria === "servicos" ? "Serviços e Estrutura" :
-                          "Extras e Personalizações"}
+                      {categoria === 'bebidas'
+                        ? 'Adicionais de Bebidas'
+                        : categoria === 'servicos'
+                          ? 'Serviços e Estrutura'
+                          : 'Extras e Personalizações'}
                     </h3>
                     <div className="space-y-4">
                       {itens.map((item) => (
@@ -202,13 +211,19 @@ export default function OrcamentoPage() {
                                 const outros = prev.adicionais.filter((a) => a.nome !== item.nome);
                                 return {
                                   ...prev,
-                                  adicionais: qtd > 0 ? [...outros, { nome: item.nome, qtd, preco: item.preco }] : outros,
+                                  adicionais:
+                                    qtd > 0
+                                      ? [...outros, { nome: item.nome, qtd, preco: item.preco }]
+                                      : outros,
                                 };
                               });
                             }}
                             className="w-20 p-2 border rounded-md"
                           />
-                          <span>{item.nome} — <strong>R${item.preco.toFixed(2)}</strong> <em>({item.unidade})</em></span>
+                          <span>
+                            {item.nome} — <strong>R${item.preco.toFixed(2)}</strong>{' '}
+                            <em>({item.unidade})</em>
+                          </span>
                         </div>
                       ))}
                     </div>
@@ -220,7 +235,7 @@ export default function OrcamentoPage() {
                   <textarea
                     rows={3}
                     value={formData.observacoes}
-                    onChange={(e) => handleInputChange("observacoes", e.target.value)}
+                    onChange={(e) => handleInputChange('observacoes', e.target.value)}
                     placeholder="Alguma observação especial..."
                     className="w-full p-3 mt-2 border rounded-md"
                   />
@@ -229,7 +244,7 @@ export default function OrcamentoPage() {
                 <div className="pt-4">
                   <button
                     type="submit"
-                    className="w-full bg-[#5A5040] text-white py-3 rounded-lg text-lg font-semibold hover:bg-[#4a4135] transition"
+                    className="w-full rounded-lg bg-[#5A5040] py-3 text-lg font-semibold text-white transition hover:bg-[#4a4135]"
                   >
                     Continuar orçamento
                   </button>
@@ -244,5 +259,3 @@ export default function OrcamentoPage() {
     </div>
   );
 }
-
-

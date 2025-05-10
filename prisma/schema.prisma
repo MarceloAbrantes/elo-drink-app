@@ -16,11 +16,11 @@ model users {
 }
 
 model Pessoa {
-  id        Int         @id @default(autoincrement())
-  nome      String
-  email     String
-  telefone  String
-  cpf       String      @unique
+  id         Int         @id @default(autoincrement())
+  nome       String
+  email      String
+  telefone   String
+  cpf        String      @unique
   orcamentos Orcamento[]
 }
 
@@ -37,7 +37,6 @@ model Orcamento {
   pessoaId       Int
   pessoa         Pessoa   @relation(fields: [pessoaId], references: [id])
 }
-<<<<<<< HEAD
 
 model User {
   id            String    @id @default(cuid())
@@ -63,6 +62,7 @@ model Account {
   id_token          String?
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@unique([provider, providerAccountId])
 }
 
@@ -78,7 +78,6 @@ model VerificationToken {
   identifier String
   token      String   @unique
   expires    DateTime
+
   @@unique([identifier, token])
 }
-=======
->>>>>>> fb9414b99421c247aa05f8cf075bdd5c6db484fa
