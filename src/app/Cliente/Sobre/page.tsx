@@ -2,37 +2,37 @@ import Link from "next/link";
 
 export default function SobrePage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7F6F3]">
+    <div className="min-h-screen flex flex-col bg-[#101820]">
 
       {/* Imagem com Texto por cima */}
       <section className="relative w-full h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden">
         <img
-          src="/elo-banner.jpg" 
+          src="/imagem_fundo.png" 
           alt="Elo Drinks Banner"
           className="absolute object-cover w-full h-full opacity-30"
         />
         <div className="relative z-10 px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#5A5040] drop-shadow-md">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#F7F6F3] drop-shadow-lg">
             Celebre momentos únicos
           </h2>
-          <p className="mt-4 text-lg md:text-xl text-[#5A5040] max-w-2xl mx-auto">
+          <p className="mt-4 text-lg md:text-xl text-[#F7F6F3] max-w-2xl mx-auto">
             Com os melhores drinks, atendimento impecável e experiências inesquecíveis, a Elo Drinks transforma sua festa em um evento memorável.
           </p>
         </div>
       </section>
 
       {/* SOBRE A EMPRESA */}
-      <section className="relative flex flex-col md:flex-row items-center justify-center gap-12 px-12 py-20 bg-[#F7F6F3]">
+      <section className="relative flex flex-col md:flex-row items-center justify-center gap-12 px-12 py-20 bg-[#101820]">
         {/* Imagem de fundo */}
         <img
           src="/fundo.svg"
           alt="Fundo decorativo"
-          className="absolute z-0 object-cover w-full h-full opacity-15"
+          className="absolute z-0 object-cover w-full h-full opacity-100"
         />
 
         {/* Texto à esquerda */}
         
-        <div className="relative z-10 md:w-1/2 space-y-6 text-left text-[#5A5040]">
+        <div className="relative z-10 md:w-1/2 space-y-6 text-left text-[#F7F6F3]">
           <h3 className="mb-4 text-3xl font-semibold">Sobre a Elo Drinks</h3>
           <p className="text-lg leading-relaxed text-justify">
             Desde 2016, a Elo Drinks é referência em coquetelaria personalizada para eventos sociais e corporativos. 
@@ -54,16 +54,16 @@ export default function SobrePage() {
       </section>
 
       {/* NOSSO FUNDADOR */}
-      <section className="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 px-12 py-20 bg-[#F7F6F3]">
+      <section className="relative flex flex-col md:flex-row-reverse items-center justify-center gap-12 px-12 py-20 bg-[#101820]">
         {/* Imagem de fundo */}
         <img
           src="/fundo.svg"
           alt="Fundo decorativo"
-          className="absolute z-0 object-cover w-full h-full opacity-10"
+          className="absolute z-0 object-cover w-full h-full opacity-100"
         />
 
         {/* Texto à direita */}
-        <div className="relative z-10 md:w-1/2 space-y-6 text-right text-[#5A5040]">
+        <div className="relative z-10 md:w-1/2 space-y-6 text-right text-[#F7F6F3]">
           <h3 className="pr-6 mb-4 text-3xl font-semibold text-left">Nosso Fundador</h3>
           <p className="text-lg leading-relaxed text-justify">
             À frente da Elo Drinks está o empresário Roberto Vitta, que começou sua trajetória como barman 

@@ -1,10 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
 import Image from 'next/image';
 
 export default function OrcamentoPage() {
+
+
   const [eventoSelecionado, setEventoSelecionado] = useState<string | null>(null);
 
   const eventos = ['Debutante', 'Casamento', 'Corporativo', 'Aniversário', 'Outro'];
@@ -35,6 +37,7 @@ export default function OrcamentoPage() {
   };
 
   const [formData, setFormData] = useState({
+    nome: '',
     dataEvento: '',
     horarioInicio: '',
     horarioTermino: '',
@@ -42,6 +45,11 @@ export default function OrcamentoPage() {
     observacoes: '',
     adicionais: [] as { nome: string; qtd: number; preco: number }[],
   });
+
+    useEffect(() => {
+    const hoje = new Date().toISOString().split('T')[0];
+          setFormData(prev => ({ ...prev, eventDate: hoje }));
+  }, []);
 
   function handleInputChange(field: string, value: any) {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -72,30 +80,41 @@ export default function OrcamentoPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F7F6F3] px-8 pt-24">
-      <div className="flex flex-col items-start justify-start gap-12 lg:flex-row">
+    /* background */
+    <div className="flex min-h-screen flex-col bg-[#101820] px-8 pt-24">
+              <img
+          src="/fundo.svg"
+          alt="Fundo decorativo"
+          className="absolute z-0 object-cover w-full h-full opacity-50"
+        />
+      
+      <div className="relative z-10 flex flex-col items-start justify-start gap-12 lg:flex-row">
         <div className="flex flex-col w-full max-w-2xl">
-          <h1 className="mb-8 ml-15 text-4xl font-bold text-[#5A5040]">
+          
+          <h1 className="mb-8 ml-15 text-4xl text-center font-extrabold text-[#F7F6F3]">
             Faça agora o orçamento do seu evento!
           </h1>
+          
           <div className="flex flex-col gap-6">
             {eventos.map((evento) => (
               <div
                 key={evento}
-                className="flex cursor-pointer items-center justify-between rounded-lg border-l-8 border-[#E0CEAA] bg-white p-6 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                className="flex cursor-pointer items-center justify-between rounded-lg border-l-8 border-[#101820] bg-[#9D4815] p-6 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg opacity-80"
                 onClick={() => selecionarEvento(evento)}
               >
-                <span className="text-2xl font-semibold text-[#5A5040]">{evento}</span>
-                <Plus size={32} color="#5A5040" />
+                <span className="text-2xl font-semibold text-[#F7F6F3]">{evento}</span>
+                <Plus size={32} color="#9D4815" />
               </div>
             ))}
           </div>
         </div>
-
+        
+        
         <div className="justify-end hidden w-full lg:flex">
-          <div className="relative h-[700px] w-[700px] overflow-hidden rounded-lg shadow-md">
+          {/* Imagem do lado direito */}
+          <div className="relative h-[700px] w-[700px] overflow-hidden rounded-lg shadow-md opacity-40">
             <Image
-              src="/imagem_fundo2.JPG"
+              src="/img1.JPG"
               alt="Drinks Elo"
               fill
               className="object-contain"
@@ -107,7 +126,7 @@ export default function OrcamentoPage() {
 
       {eventoSelecionado && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40">
-          <div className="relative max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-xl bg-white p-8 shadow-2xl">
+          <div className="relative max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-xl bg-[#101820] p-8 shadow-2xl">
             <button
               onClick={() => setEventoSelecionado(null)}
               className="absolute text-2xl text-gray-600 top-4 right-4 hover:text-red-500"
@@ -115,12 +134,12 @@ export default function OrcamentoPage() {
               ×
             </button>
 
-            <h2 className="mb-8 text-center text-3xl font-bold text-[#5A5040]">
+            <h2 className="mb-8 text-center text-3xl font-bold text-[#F7F6F3]">
               Orçamento para {eventoSelecionado}
             </h2>
 
             {eventoSelecionado === 'Debutante' || eventoSelecionado === 'Casamento' ? (
-              <form className="space-y-6 text-[#5A5040]" onSubmit={handleSubmit}>
+              <form className="space-y-6 text-[#F7F6F3]" onSubmit={handleSubmit}>
                 <div>
                   <label className="font-semibold">Data do Evento</label>
                   <input
@@ -244,7 +263,7 @@ export default function OrcamentoPage() {
                 <div className="pt-4">
                   <button
                     type="submit"
-                    className="w-full rounded-lg bg-[#5A5040] py-3 text-lg font-semibold text-white transition hover:bg-[#4a4135]"
+                    className="w-full rounded-lg bg-[#9D4815] py-3 text-lg font-semibold text-white transition hover:bg-[#4a4135]"
                   >
                     Continuar orçamento
                   </button>
