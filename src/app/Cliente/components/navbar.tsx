@@ -3,7 +3,10 @@ import Image from 'next/image';
 
 export default function Navbar() {
   return (
-    <header className="fixed top-0 z-50 flex w-full items-center justify-between bg-[#9D4815]/70 px-8 py-6 shadow-md backdrop-blur-md">
+    <header
+      className="fixed top-0 z-50 flex items-center justify-between w-full px-8 py-6 shadow-lg"
+      style={{ backgroundColor: 'rgba(16, 24, 32, 0.7)' }} // #101820 com 60% opacidade
+    >
       <div className="flex items-center gap-4">
         <img src="/logo3.png" alt="Logo Elo Drinks" className="w-auto h-16" />
       </div>
@@ -24,3 +27,6 @@ export default function Navbar() {
     </header>
   );
 }
+
+
+

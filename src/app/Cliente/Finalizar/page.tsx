@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Lottie from 'lottie-react';
+import successAnimation from '@/assets/lotties/success-animation.json';
 import Image from 'next/image';
 
 export default function FinalizarPage() {
@@ -54,14 +56,17 @@ export default function FinalizarPage() {
 
   if (finalizado) {
     return (
-      <div className="flex items-center justify-center min-h-screen p-8 bg-white">
-        <div className="space-y-6 text-center">
-          <div className="w-32 h-32 mx-auto">
-            {/* Substitua por um gif/ícone de sucesso se quiser */}
-            <Image src="/sucesso.gif" alt="Sucesso" width={200} height={200} />
+      <div className="flex items-center justify-center min-h-screen p-8 bg-[#101820]">
+        <div className="flex flex-col items-center space-y-6 text-center">
+          <div className="w-96 h-96">
+            <Lottie animationData={successAnimation} loop={false} />
           </div>
-          <h1 className="text-3xl font-bold text-[#5A5040]">Orçamento finalizado com sucesso!</h1>
-          <p className="text-lg">Você será redirecionado para a página inicial em instantes...</p>
+          <h1 className="text-3xl font-bold text-[#F7F6F3]">
+            Orçamento finalizado com sucesso!
+          </h1>
+          <p className="text-lg text-[#F7F6F3]">
+            Você será redirecionado para a página inicial em instantes...
+          </p>
         </div>
       </div>
     );
@@ -74,11 +79,16 @@ export default function FinalizarPage() {
   const dataFormatada = new Date(orcamento.dataEvento).toLocaleDateString('pt-BR');
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F7F6F3] p-8 md:flex-row">
-      <div className="flex-1 space-y-6">
-        <h1 className="mb-4 text-3xl font-bold text-[#5A5040]">Resumo do Orçamento</h1>
+    <div className="relative flex min-h-screen flex-col bg-[#101820] p-8 md:flex-row overflow-hidden">
+        <img
+          src="/fundo.svg"
+          alt="Fundo decorativo"
+          className="absolute inset-0 z-0 object-cover w-full h-full pointer-events-none opacity-30"
+        />
+        <div className="relative z-10 flex-1 space-y-6">
+        <h1 className="mb-4 text-3xl font-bold text-[#F7F6F3]">Resumo do Orçamento</h1>
 
-        <div className="rounded-lg bg-white p-6 text-[#5A5040] shadow">
+        <div className="rounded-lg bg-[#5A5040] p-6 text-[#F7F6F3] shadow">
           <p>
             <strong>Tipo de Evento:</strong> {orcamento.tipoEvento}
           </p>
@@ -115,41 +125,41 @@ export default function FinalizarPage() {
         </div>
       </div>
 
-      <div className="w-full p-6 mt-8 bg-white rounded-lg shadow-lg h-fit md:mt-0 md:ml-8 md:w-1/3">
-        <h2 className="mb-4 text-xl font-semibold text-[#5A5040]">Seus dados</h2>
+      <div className="w-full p-6 mt-8 bg-[#5A5040] rounded-lg shadow-lg h-fit md:mt-0 md:ml-8 md:w-1/3">
+        <h2 className="mb-4 text-xl font-semibold text-[#F7F6F3]">Seus dados</h2>
 
         <input
           type="text"
           placeholder="Nome completo"
           value={dadosPessoais.nome}
           onChange={(e) => handleChange('nome', e.target.value)}
-          className="mb-4 w-full rounded-md border p-3 text-[#5A5040] placeholder:text-[#5A504099]"
+          className="mb-4 w-full rounded-md border p-3 text-[#F7F6F3] placeholder:text-[#F7F6F3]"
         />
         <input
           type="email"
           placeholder="E-mail"
           value={dadosPessoais.email}
           onChange={(e) => handleChange('email', e.target.value)}
-          className="mb-4 w-full rounded-md border p-3 text-[#5A5040] placeholder:text-[#5A504099]"
+          className="mb-4 w-full rounded-md border p-3 text-[#F7F6F3] placeholder:text-[#F7F6F3]"
         />
         <input
           type="tel"
           placeholder="Celular"
           value={dadosPessoais.telefone}
           onChange={(e) => handleChange('telefone', e.target.value)}
-          className="mb-4 w-full rounded-md border p-3 text-[#5A5040] placeholder:text-[#5A504099]"
+          className="mb-4 w-full rounded-md border p-3 text-[#F7F6F3] placeholder:text-[#F7F6F3]"
         />
         <input
           type="text"
           placeholder="CPF"
           value={dadosPessoais.cpf}
           onChange={(e) => handleChange('cpf', e.target.value)}
-          className="mb-6 w-full rounded-md border p-3 text-[#5A5040] placeholder:text-[#5A504099]"
+          className="mb-6 w-full rounded-md border p-3 text-[#F7F6F3] placeholder:text-[#F7F6F3]"
         />
 
         <button
           onClick={finalizarOrcamento}
-          className="w-full rounded-lg bg-[#5A5040] py-3 text-lg font-semibold text-white transition hover:bg-[#4a4135]"
+          className="w-full rounded-lg bg-[#F7F6F3] py-3 text-lg font-semibold text-[#5A5040] transition hover:bg-[#4a4135]"
         >
           Finalizar orçamento
         </button>

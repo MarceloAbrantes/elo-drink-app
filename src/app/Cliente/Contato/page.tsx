@@ -18,7 +18,7 @@ export default function Contato() {
         
         {/* Formulário */}
         <div className="relative z-10 flex items-center justify-center flex-1 p-10">
-          <form className="w-full max-w-lg p-8 space-y-6 bg-[#9D4815] rounded-lg shadow-md">
+          <form className="w-full max-w-lg p-8 space-y-6 bg-[#5A5040] rounded-lg shadow-md">
             <h2 className="text-3xl font-bold text-[#F7F6F3] text-center">Fale conosco</h2>
 
             {/* Nome */}
@@ -27,7 +27,7 @@ export default function Contato() {
               <input
                 type="text"
                 placeholder="Seu nome"
-                className="w-full border border-[#F7F6F3] text-[#101820] bg-[#E0CEAA]  p-3 rounded-md focus:outline-none " required
+                className="w-full border border-[#101820] text-[#101820] bg-[#F7F6F3]  p-3 rounded-md focus:outline-none " required
               />
             </div>
 
@@ -37,7 +37,7 @@ export default function Contato() {
               <input
                 type="email"
                 placeholder="seu@email.com"
-                className="w-full border border-[#F7F6F3] text-[#101820] bg-[#E0CEAA] p-3 rounded-md focus:outline-none " required
+                className="w-full border border-[#101820] text-[#101820] bg-[#F7F6F3] p-3 rounded-md focus:outline-none " required
               />
             </div>
 
@@ -47,7 +47,7 @@ export default function Contato() {
               <input
                 type="tel"
                 placeholder="Telefone"
-                className="w-full border border-[#F7F6F3] text-[#101820] bg-[#E0CEAA]  p-3 rounded-md focus:outline-none " required
+                className="w-full border border-[#101820] text-[#101820] bg-[#F7F6F3]  p-3 rounded-md focus:outline-none " required
               />
             </div>
 
@@ -55,17 +55,26 @@ export default function Contato() {
             <div>
               <label className="block text-[#F7F6F3] font-medium mb-2">Mensagem</label>
               <textarea
-                placeholder="Mensagem"
-                rows={3}
-                className="w-full border border-[#F7F6F3] text-[#101820] bg-[#E0CEAA] p-3 rounded-md focus:outline-none " required
+                placeholder="Escreva sua mensagem..."
+                rows={5}
+                className="w-full border border-[#101820] text-[#101820] bg-[#F7F6F3]  p-3 rounded-md focus:outline-none"
               ></textarea>
+            </div>
+
+            {/* Anexo */}
+            <div>
+              <label className="block text-[#F7F6F3] font-medium mb-2">Anexar Arquivo</label>
+              <input
+                type="file"
+                className="w-full border border-[#101820] text-[#101820] bg-[#F7F6F3]  p-3 rounded-md focus:outline-none"
+              />
             </div>
 
             {/* Botão */}
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="bg-[#E0CEAA] text-[#101820] px-8 py-3 rounded-md transition-colors duration-300"
+                className="bg-[#F7F6F3] text-[#101820] px-8 py-3 rounded-md transition-colors duration-300"
               >
                 Enviar
               </button>

@@ -81,29 +81,26 @@ export default function OrcamentoPage() {
 
   return (
     /* background */
-    <div className="flex min-h-screen flex-col bg-[#101820] px-8 pt-24">
+    <div className="flex min-h-screen flex-col bg-[#101820] px-8 pt-24 overflow-x-hidden relative">
               <img
           src="/fundo.svg"
           alt="Fundo decorativo"
-          className="absolute z-0 object-cover w-full h-full opacity-50"
+          className="absolute inset-0 z-0 object-cover w-full h-full max-w-full opacity-50"
         />
-      
       <div className="relative z-10 flex flex-col items-start justify-start gap-12 lg:flex-row">
         <div className="flex flex-col w-full max-w-2xl">
-          
-          <h1 className="mb-8 ml-15 text-4xl text-center font-extrabold text-[#F7F6F3]">
+          <h1 className="mb-8 ml-15 text-4xl font-bold text-[#F7F6F3]">
             Faça agora o orçamento do seu evento!
           </h1>
-          
           <div className="flex flex-col gap-6">
             {eventos.map((evento) => (
               <div
                 key={evento}
-                className="flex cursor-pointer items-center justify-between rounded-lg border-l-8 border-[#101820] bg-[#9D4815] p-6 shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg opacity-80"
+                className="flex cursor-pointer items-center justify-between rounded-lg border-l-8 border-[#F7F6F3] bg-[#5A5040] p-6 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-md "
                 onClick={() => selecionarEvento(evento)}
               >
                 <span className="text-2xl font-semibold text-[#F7F6F3]">{evento}</span>
-                <Plus size={32} color="#9D4815" />
+                <Plus size={32} color="#101820" />
               </div>
             ))}
           </div>
@@ -263,7 +260,7 @@ export default function OrcamentoPage() {
                 <div className="pt-4">
                   <button
                     type="submit"
-                    className="w-full rounded-lg bg-[#9D4815] py-3 text-lg font-semibold text-white transition hover:bg-[#4a4135]"
+                    className="w-full rounded-lg bg-[#5A5040] py-3 text-lg font-semibold text-[#F7F6F3] transition hover:bg-[#4a4135]"
                   >
                     Continuar orçamento
                   </button>
