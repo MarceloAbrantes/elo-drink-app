@@ -3,10 +3,10 @@
 import { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function OrcamentoPage() {
-
-
+  const router = useRouter();
   const [eventoSelecionado, setEventoSelecionado] = useState<string | null>(null);
 
   const eventos = ['Debutante', 'Casamento', 'Corporativo', 'Aniversário', 'Outro'];
@@ -46,9 +46,9 @@ export default function OrcamentoPage() {
     adicionais: [] as { nome: string; qtd: number; preco: number }[],
   });
 
-    useEffect(() => {
+  useEffect(() => {
     const hoje = new Date().toISOString().split('T')[0];
-          setFormData(prev => ({ ...prev, eventDate: hoje }));
+    setFormData((prev) => ({ ...prev, eventDate: hoje }));
   }, []);
 
   function handleInputChange(field: string, value: any) {
@@ -57,6 +57,11 @@ export default function OrcamentoPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    if (!formData.dataEvento || !formData.horarioInicio || !formData.horarioTermino || !formData.convidados) {
+      alert("Por favor, preencha todos os campos obrigatórios: Data, Horário e Convidados.");
+      return;
+    }
 
     const payload = {
       tipoEvento: eventoSelecionado,
@@ -68,10 +73,7 @@ export default function OrcamentoPage() {
       adicionais: formData.adicionais,
     };
 
-    // Salvar no localStorage (como rascunho)
     localStorage.setItem('orcamento_draft', JSON.stringify(payload));
-
-    // Redirecionar para página de finalização
     window.location.href = '/Cliente/Finalizar';
   }
 
@@ -79,24 +81,27 @@ export default function OrcamentoPage() {
     setEventoSelecionado(evento);
   }
 
+  function adicionarAdicional(nome: string, preco: number) {
+    setFormData((prev) => {
+      const outros = prev.adicionais.filter((a) => a.nome !== nome);
+      return {
+        ...prev,
+        adicionais: [...outros, { nome, qtd: 1, preco }],
+      };
+    });
+  }
+
   return (
-    /* background */
     <div className="flex min-h-screen flex-col bg-[#101820] px-8 pt-24 overflow-x-hidden relative">
-              <img
-          src="/fundo.svg"
-          alt="Fundo decorativo"
-          className="absolute inset-0 z-0 object-cover w-full h-full max-w-full opacity-50"
-        />
+      <img src="/fundo.svg" alt="Fundo decorativo" className="absolute inset-0 z-0 object-cover w-full h-full max-w-full opacity-50" />
       <div className="relative z-10 flex flex-col items-start justify-start gap-12 lg:flex-row">
         <div className="flex flex-col w-full max-w-2xl">
-          <h1 className="mb-8 ml-15 text-4xl font-bold text-[#F7F6F3]">
-            Faça agora o orçamento do seu evento!
-          </h1>
+          <h1 className="mb-8 ml-15 text-4xl font-bold text-[#F7F6F3]">Faça agora o orçamento do seu evento!</h1>
           <div className="flex flex-col gap-6">
             {eventos.map((evento) => (
               <div
                 key={evento}
-                className="flex cursor-pointer items-center justify-between rounded-lg border-l-8 border-[#F7F6F3] bg-[#5A5040] p-6 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-md "
+                className="flex cursor-pointer items-center justify-between rounded-lg border-l-8 border-[#F7F6F3] bg-[#5A5040] p-6 shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-md"
                 onClick={() => selecionarEvento(evento)}
               >
                 <span className="text-2xl font-semibold text-[#F7F6F3]">{evento}</span>
@@ -105,18 +110,10 @@ export default function OrcamentoPage() {
             ))}
           </div>
         </div>
-        
-        
+
         <div className="justify-end hidden w-full lg:flex">
-          {/* Imagem do lado direito */}
           <div className="relative h-[700px] w-[700px] overflow-hidden rounded-lg shadow-md opacity-40">
-            <Image
-              src="/img1.JPG"
-              alt="Drinks Elo"
-              fill
-              className="object-contain"
-              priority
-            />
+            <Image src="/img1.JPG" alt="Drinks Elo" fill className="object-contain" priority />
           </div>
         </div>
       </div>
@@ -124,56 +121,40 @@ export default function OrcamentoPage() {
       {eventoSelecionado && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40">
           <div className="relative max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-xl bg-[#101820] p-8 shadow-2xl">
-            <button
-              onClick={() => setEventoSelecionado(null)}
-              className="absolute text-2xl text-gray-600 top-4 right-4 hover:text-red-500"
-            >
-              ×
-            </button>
+            <button onClick={() => setEventoSelecionado(null)} className="absolute text-2xl text-gray-600 top-4 right-4 hover:text-red-500">×</button>
+            <h2 className="mb-8 text-center text-3xl font-bold text-[#F7F6F3]">Orçamento para {eventoSelecionado}</h2>
 
-            <h2 className="mb-8 text-center text-3xl font-bold text-[#F7F6F3]">
-              Orçamento para {eventoSelecionado}
-            </h2>
+            <div className="mb-6">
+              <p className="text-center text-[#F7F6F3]">Não encontrou o que procura?</p>
+              <button
+                onClick={() => router.push("/Cliente/Contato")}
+                className="mt-2 mx-auto block rounded-md border border-[#F7F6F3] px-6 py-2 text-sm text-[#F7F6F3] hover:bg-[#5A5040] transition"
+              >
+                Criar orçamento personalizado
+              </button>
+            </div>
 
             {eventoSelecionado === 'Debutante' || eventoSelecionado === 'Casamento' ? (
               <form className="space-y-6 text-[#F7F6F3]" onSubmit={handleSubmit}>
                 <div>
-                  <label className="font-semibold">Data do Evento</label>
-                  <input
-                    type="date"
-                    value={formData.dataEvento}
-                    onChange={(e) => handleInputChange('dataEvento', e.target.value)}
-                    className="w-full p-3 mt-2 border rounded-md"
-                  />
+                  <label className="font-semibold">Data do Evento <span className="text-red-500">*</span></label>
+                  <input type="date" value={formData.dataEvento} onChange={(e) => handleInputChange('dataEvento', e.target.value)} className="w-full p-3 mt-2 border rounded-md" required />
                 </div>
+
                 <div className="flex gap-4">
                   <div className="flex-1">
-                    <label className="font-semibold">Início</label>
-                    <input
-                      type="time"
-                      value={formData.horarioInicio}
-                      onChange={(e) => handleInputChange('horarioInicio', e.target.value)}
-                      className="w-full p-3 mt-2 border rounded-md"
-                    />
+                    <label className="font-semibold">Início <span className="text-red-500">*</span></label>
+                    <input type="time" value={formData.horarioInicio} onChange={(e) => handleInputChange('horarioInicio', e.target.value)} className="w-full p-3 mt-2 border rounded-md" required />
                   </div>
                   <div className="flex-1">
-                    <label className="font-semibold">Término</label>
-                    <input
-                      type="time"
-                      value={formData.horarioTermino}
-                      onChange={(e) => handleInputChange('horarioTermino', e.target.value)}
-                      className="w-full p-3 mt-2 border rounded-md"
-                    />
+                    <label className="font-semibold">Término <span className="text-red-500">*</span></label>
+                    <input type="time" value={formData.horarioTermino} onChange={(e) => handleInputChange('horarioTermino', e.target.value)} className="w-full p-3 mt-2 border rounded-md" required />
                   </div>
                 </div>
+
                 <div>
-                  <label className="font-semibold">Número de Convidados</label>
-                  <input
-                    type="number"
-                    value={formData.convidados}
-                    onChange={(e) => handleInputChange('convidados', e.target.value)}
-                    className="w-full p-3 mt-2 border rounded-md"
-                  />
+                  <label className="font-semibold">Número de Convidados <span className="text-red-500">*</span></label>
+                  <input type="number" value={formData.convidados} onChange={(e) => handleInputChange('convidados', e.target.value)} className="w-full p-3 mt-2 border rounded-md" required />
                 </div>
 
                 <div>
@@ -217,6 +198,24 @@ export default function OrcamentoPage() {
                     <div className="space-y-4">
                       {itens.map((item) => (
                         <div key={item.nome} className="flex items-center gap-4">
+                        {['valor fixo', 'por convidado'].includes(item.unidade) ? (
+                          <input
+                            type="checkbox"
+                            onChange={(e) => {
+                              const checked = e.target.checked;
+                              setFormData((prev) => {
+                                const outros = prev.adicionais.filter((a) => a.nome !== item.nome);
+                                return {
+                                  ...prev,
+                                  adicionais: checked
+                                    ? [...outros, { nome: item.nome, qtd: 1, preco: item.preco }]
+                                    : outros,
+                                };
+                              });
+                            }}
+                            className="h-6 w-6 accent-[#5A5040] cursor-pointer"
+                          />
+                        ) : (
                           <input
                             type="number"
                             min={0}
@@ -236,6 +235,7 @@ export default function OrcamentoPage() {
                             }}
                             className="w-20 p-2 border rounded-md"
                           />
+                        )}
                           <span>
                             {item.nome} — <strong>R${item.preco.toFixed(2)}</strong>{' '}
                             <em>({item.unidade})</em>
