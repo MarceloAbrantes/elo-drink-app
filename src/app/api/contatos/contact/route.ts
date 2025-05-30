@@ -67,11 +67,11 @@ export async function POST(req: Request) {
     to: process.env.EMAIL_TO,
     subject: 'Novo Contato em Elo Drinks',
     html: `
-      <h2>New Contact</h2>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Phone:</strong> ${phone}</p>
+      <h2>Nova Mensagem:</h2>
+      <p><strong>Nome:</strong> ${name}</p>
+      <p><strong>Telefone:</strong> ${phone}</p>
       <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Message:</strong><br/>${message}</p>
+      <p><strong>Mensagem:</strong><br/>${message}</p>
     `,
     attachments,
   });
