@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export default function Contato() {
    const [formData, setFormData] = useState({
@@ -11,6 +11,25 @@ export default function Contato() {
     message: '',
     file: null,
   });
+
+const formatPhone = (value: string) => {
+  // Keep only digits
+  const digits = value.replace(/\D/g, '');
+
+  // Format based on length
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 7) return `(${digits.slice(0,2)}) ${digits.slice(2)}`;
+  if (digits.length <= 11)
+    return `(${digits.slice(0,2)}) ${digits.slice(2,7)}-${digits.slice(7)}`;
+  return digits;
+};
+
+const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const formatted = formatPhone(e.target.value);
+  setFormData({ ...formData, phone: formatted });
+};
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const [status, setStatus] = useState('');
 
@@ -49,11 +68,14 @@ export default function Contato() {
 
     const result = await res.json();
     if (result.success) {
-      setStatus('Message sent successfully!');
-      setFormData({ name: '', phone: '', email: '', message: '', file: null });
+      setStatus('Mensagem enviada com sucesso!');
+      setFormData({ name: '', phone: '', email: '', message: '', file: '' });
     } else {
       setStatus('Error: ' + (result.error || 'Unknown error'));
     }
+    if (fileInputRef.current) {
+    fileInputRef.current.value = '';
+}
   };
 
   return (
@@ -108,9 +130,9 @@ export default function Contato() {
               <input
                 name="phone"
                 type="tel"
-                placeholder="Telefone"
-                value={formData.phone} 
-                onChange={handleChange}
+                placeholder="(00) 00000-0000"
+                value={formData.phone}
+                onChange={handlePhoneChange}
                 className="w-full border border-[#101820] text-[#101820] bg-[#F7F6F3]  p-3 rounded-md focus:outline-none " required
               />
             </div>
@@ -128,15 +150,36 @@ export default function Contato() {
               ></textarea>
             </div>
 
-            {/* Anexo */}
-            <div>
-              <label className="block text-[#F7F6F3] font-medium mb-2">Anexar Arquivo</label>
-              <input
-                type="file"
-                onChange={handleFileChange}
-                className="w-full border border-[#101820] text-[#101820] bg-[#F7F6F3]  p-3 rounded-md focus:outline-none"
-              />
-            </div>
+{/* Anexo */}
+<div>
+  <label className="block text-[#F7F6F3] font-medium mb-2">Anexar Arquivo</label>
+  <div className="flex items-center space-x-2">
+    <input
+      ref={fileInputRef}
+      type="file"
+      onChange={handleFileChange}
+      className="w-full border border-[#101820] text-[#101820] bg-[#F7F6F3] p-3 rounded-md focus:outline-none"
+    />
+    {formData.file && (
+      <button
+        type="button"
+        onClick={() => {
+          setFormData({ ...formData, file: null });
+          if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+          }
+        }}
+        className="px-2 font-bold text-red-600 rounded hover:bg-red-200"
+        aria-label="Remove attached file"
+      >
+        ✕
+      </button>
+    )}
+  </div>
+  {formData.file && (
+    <p className="mt-1 text-[#F7F6F3] text-sm">{formData.file.name}</p>
+  )}
+</div>
 
             {/* Botão */}
             <div className="flex justify-center">
@@ -147,6 +190,17 @@ export default function Contato() {
                 Enviar
               </button>
             </div>
+
+          {/* Status message */}
+          {status && (
+            <p
+              className={`mt-4 text-center ${
+                status.includes('sucesso') ? 'text-green-500' : 'text-red-500'
+            }`}
+            >
+            {status}
+            </p>
+          )}
           </form>
         </div>
 
