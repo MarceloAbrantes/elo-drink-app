@@ -134,7 +134,7 @@ export default function OrcamentoPage() {
               </button>
             </div>
 
-            {eventoSelecionado === 'Debutante' || eventoSelecionado === 'Casamento' ? (
+            {eventoSelecionado === 'Debutante' || eventoSelecionado === 'Casamento' || eventoSelecionado === 'Corporativo' || eventoSelecionado === 'Aniversário' ? (
               <form className="space-y-6 text-[#F7F6F3]" onSubmit={handleSubmit}>
                 <div>
                   <label className="font-semibold">Data do Evento <span className="text-red-500">*</span></label>
@@ -267,8 +267,12 @@ export default function OrcamentoPage() {
                 </div>
               </form>
             ) : (
-              <p className="text-lg text-center">Em breve essa opção estará disponível.</p>
+              <p className="text-lg text-center"></p>
             )}
+            {eventoSelecionado === 'Outro' ? (
+              <p className="mt-4 text-lg text-center">Entre em contato para criar um orçamento personalizado!</p>
+            ) : null}
+
           </div>
         </div>
       )}

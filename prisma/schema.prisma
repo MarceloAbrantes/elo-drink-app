@@ -81,3 +81,13 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Contact {
+  id        Int      @id @default(autoincrement())
+  name      String
+  phone     String
+  email     String
+  message   String
+  fileUrl   String?
+  createdAt DateTime @default(now())
+}
