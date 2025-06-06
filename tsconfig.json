@@ -35,7 +35,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/types/**/*.d.ts" // 👈 importante: inclui os arquivos de declaração
-  ],
+, "src/tests/Sobre.test.js", "jest.config.js"  ],
   "exclude": ["node_modules"]
 }
 

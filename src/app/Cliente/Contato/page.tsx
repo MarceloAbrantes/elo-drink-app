@@ -12,6 +12,8 @@ export default function Contato() {
     file: null,
   });
 
+
+  
 const formatPhone = (value: string) => {
   // Keep only digits
   const digits = value.replace(/\D/g, '');
@@ -51,6 +53,7 @@ const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setStatus('Please fill all required fields.');
       return;
     }
+    
 
     const data = new FormData();
     data.append('name', name);
