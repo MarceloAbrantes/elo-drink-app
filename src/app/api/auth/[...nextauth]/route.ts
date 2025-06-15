@@ -1,38 +1,44 @@
-import NextAuth from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs"; // ou 'bcryptjs' se você usou ele
+import { AuthOptions } from "next-auth";
 
-const handler = NextAuth({
+const prisma = new PrismaClient();
+
+export const authOptions: AuthOptions = {
+  session: {
+    strategy: "jwt", // agora com tipagem correta
+  },
   providers: [
     CredentialsProvider({
-      name: 'Email e senha',
+      name: "Credentials",
       credentials: {
-        mail: { label: 'E-mail', type: 'text', placeholder: 'exemplo@email.com' },
-        password: { label: 'Senha', type: 'password' },
+        email: { label: "Email", type: "text" },
+        password: { label: "Senha", type: "password" },
       },
-      async authorize(credentials, req) {
-        // TODO: implementar a lógica de autenticação
-        // const res = await fetch('/your/endpoint', {
-        //   method: 'POST',
-        //   body: JSON.stringify(credentials),
-        //   headers: { 'Content-Type': 'application/json' },
-        // });
-        // const user = await res.json();
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) return null;
 
-        // if (res.ok && user) {
-        //   return user;
-        // }
+        const user = await prisma.admin.findUnique({
+          where: { email: credentials.email },
+        });
 
-        return {
-          id: '1',
-          name: 'Admin',
-          email: 'admin@email.com',
-        };
+        if (!user) return null;
 
-        return null;
+        const isValid = await bcrypt.compare(credentials.password, user.password);
+        if (!isValid) return null;
+
+        return { id: user.id.toString(), name: user.name, email: user.email };
       },
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
-});
+  pages: {
+    signIn: "/Admin/login",
+  },
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
+

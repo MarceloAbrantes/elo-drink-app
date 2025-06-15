@@ -1,52 +1,76 @@
-import { useSession, signIn, signOut } from 'next-auth/react';
-import Link from 'next/link';
-import LoginForm from './components/login-form';
+'use client';
 
-export default async function AdminLogin() {
-  // const session = useSession();
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-  // const handleSignIn = async () => {
-  //   'use server';
-  //   await signIn('credentials', { redirectTo: '/Admin' });
-  // };
+export default function Login() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [erro, setErro] = useState("");
 
-  // // Handle sign-out
-  // const handleSignOut = async () => {
-  //   'use server';
-  //   await signOut();
-  // };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const res = await signIn("credentials", {
+      email,
+      password: senha,
+      redirect: false,
+    });
+
+    if (res?.ok) {
+      router.push("/Admin/orcamentos");
+    } else {
+      setErro("Email ou senha incorretos");
+    }
+  };
+
   return (
-    <main className="container flex justify-center px-4 py-12 mx-auto">
-      <div className="w-full max-w-md">
-        <LoginForm />
-      </div>
-    </main>
-    // <div>
-    //   <h1 className="text-2xl">Admin</h1>
-    //   {session ? (
-    //     <div>
-    //       <p>Welcome, {session.data?.user?.name || 'User'}!</p>
-    //       <form action={handleSignOut}>
-    //         <button
-    //           type="submit"
-    //           className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
-    //         >
-    //           Logout
-    //         </button>
-    //       </form>
-    //     </div>
-    //   ) : (
-    //     <div>
-    //       <form action={handleSignIn}>
-    //         <button
-    //           type="submit"
-    //           className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
-    //         >
-    //           Login with Github
-    //         </button>
-    //       </form>
-    //     </div>
-    //   )}
-    // </div>
+      <div
+        className="flex items-center justify-center min-h-screen bg-[#101820] bg-center bg-cover"
+        style={{
+          backgroundImage: "url('/fundo.svg')",
+          backgroundBlendMode: "multiply",
+        }}
+      >
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-md p-8 bg-white shadow-xl bg-opacity-90 rounded-xl"
+      >
+        <h2 className="mb-6 text-2xl font-bold text-center">Login</h2>
+
+        {erro && <p className="mb-4 text-center text-red-600">{erro}</p>}
+
+        <div className="mb-4">
+          <label className="block mb-1">Email</label>
+          <input
+            type="email"
+            value={email}
+            required
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-3 py-2 border rounded"
+          />
+        </div>
+
+        <div className="mb-6">
+          <label className="block mb-1">Senha</label>
+          <input
+            type="password"
+            value={senha}
+            required
+            onChange={(e) => setSenha(e.target.value)}
+            className="w-full px-3 py-2 border rounded"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full py-2 font-bold text-white bg-green-600 rounded hover:bg-green-700"
+        >
+          Entrar
+        </button>
+      </form>
+    </div>
   );
 }
