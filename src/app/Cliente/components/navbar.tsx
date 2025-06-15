@@ -8,7 +8,9 @@ export default function Navbar() {
       style={{ backgroundColor: 'rgba(16, 24, 32, 0.7)' }} // #101820 com 60% opacidade
     >
       <div className="flex items-center gap-4">
-        <img src="/logo3.png" alt="Logo Elo Drinks" className="w-auto h-16" />
+        <Link href="/Cliente">
+          <img src="/logo3.png" alt="Logo Elo Drinks" className="w-auto h-16 cursor-pointer" />
+        </Link>
       </div>
       <nav className="flex gap-8 text-lg font-extrabold text-[#F7F6F3]">
         <Link href="/Cliente" className="transition-colors duration-300 hover:text-[#E0CEAA]">
