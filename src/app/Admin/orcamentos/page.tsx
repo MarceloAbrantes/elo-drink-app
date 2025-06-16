@@ -51,7 +51,7 @@ export default function PainelAdmin() {
       <div className="flex flex-col gap-8 lg:flex-row">
         {/* Lado esquerdo: Orçamentos recebidos (mais largo) */}
         <section className="flex-1">
-          <h2 className="text-3xl font-bold text-[#F7F6F3] mb-4">Orçamentos Recebidos</h2>
+          <h2 className="text-3xl font-bold text-[#F7F6F3] mb-4">Orçamentos Recebidos:</h2>
           <div className="bg-[#5A5040] rounded-lg shadow p-6 space-y-6 max-h-[70vh] overflow-y-auto">
             {orcamentos.length === 0 ? (
               <p className="text-[#F7F6F3]">Nenhum orçamento encontrado.</p>
@@ -103,7 +103,7 @@ export default function PainelAdmin() {
 
         {/* Lado direito: Contatos personalizados (menor) */}
         <section className="w-full lg:w-1/3">
-          <h2 className="text-3xl font-bold text-[#F7F6F3] mb-4">Orçamentos Personalizados / Contatos</h2>
+          <h2 className="text-3xl font-bold text-[#F7F6F3] mb-4">Orçamentos Personalizados / Contatos:</h2>
           <div className="bg-[#5A5040] rounded-lg shadow p-6 space-y-6 max-h-[70vh] overflow-y-auto">
             {contatos.length === 0 ? (
               <p className="text-[#F7F6F3]">Nenhuma mensagem encontrada.</p>
@@ -115,8 +115,9 @@ export default function PainelAdmin() {
                   <p><strong>E‑mail:</strong> {ct.email}</p>
                   <p><strong>Mensagem:</strong> {ct.message}</p>
                   {ct.fileUrl && (
-                    <p><strong>Arquivo:</strong>{' '}
-                      <a className="text-blue-300 underline" href={ct.fileUrl} target="_blank" rel="noreferrer">Ver Arquivo</a>
+                    <p>
+                      <strong>Arquivo Enviado no E-mail:</strong>{' '}
+                      <span className="text-yellow-300">{ct.fileUrl}</span>
                     </p>
                   )}
                   <p><strong>Data:</strong> {new Date(ct.createdAt).toLocaleString('pt-BR')}</p>

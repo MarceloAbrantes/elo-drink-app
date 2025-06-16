@@ -1,7 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
 import nodemailer from 'nodemailer';
 
 const prisma = new PrismaClient();
@@ -20,22 +18,22 @@ export async function POST(req: Request) {
   }
 
   let fileUrl: string | null = null;
-  let attachments = [];
+  let attachments: any[] = [];
 
   if (file && file.size > 0) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const uniqueFilename = `${Date.now()}-${file.name}`;
-    const uploadPath = path.join(process.cwd(), 'public', 'uploads', uniqueFilename);
-
-    await fs.writeFile(uploadPath, buffer);
-    fileUrl = `/uploads/${uniqueFilename}`;
+    // Se quiser manter o arquivo salvo (opcional), pode criar lógica aqui para salvar no banco ou storage
 
     attachments.push({
       filename: file.name,
-      path: uploadPath,
+      content: buffer,
+      contentType: file.type,
     });
+
+    // Salva apenas o nome para referência futura, se quiser
+    fileUrl = file.name;
   }
 
   const saved = await prisma.contact.create({
@@ -57,7 +55,6 @@ export async function POST(req: Request) {
       pass: process.env.EMAIL_PASS,
     },
     tls: {
-      ciphers: 'SSLv3',
       rejectUnauthorized: false,
     },
   });
@@ -65,16 +62,19 @@ export async function POST(req: Request) {
   await transporter.sendMail({
     from: `"Nova Mensagem" <${process.env.EMAIL_USER}>`,
     to: process.env.EMAIL_TO,
-    subject: 'Novo Contato em Elo Drinks',
+    subject: 'Novo Contato via Elo Drinks',
     html: `
-      <h2>Nova Mensagem:</h2>
+      <h2>Nova Mensagem Recebida:</h2>
       <p><strong>Nome:</strong> ${name}</p>
       <p><strong>Telefone:</strong> ${phone}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Mensagem:</strong><br/>${message}</p>
+      ${file ? `<p><strong>Arquivo Anexo:</strong> ${file.name}</p>` : ''}
     `,
     attachments,
   });
 
   return NextResponse.json({ success: true, saved });
 }
+
+export const dynamic = 'force-dynamic';
