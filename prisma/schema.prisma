@@ -28,6 +28,7 @@ model Orcamento {
   createdAt      DateTime @default(now())
   pessoaId       Int
   pessoa         Pessoa   @relation(fields: [pessoaId], references: [id])
+  lido          Boolean  @default(false)
 }
 
 model Contact {
@@ -38,6 +39,7 @@ model Contact {
   message   String
   fileUrl   String?
   createdAt DateTime @default(now())
+  lido      Boolean  @default(false)
 }
 
 model Admin {
